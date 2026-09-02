@@ -11,8 +11,6 @@
 | `clean_ocr.py` | `ideoITG_dinov2MMR_OCRClean/run_ocr_clean.py` | 默认路径改到当前目录；主流程只使用其clean阶段，回答统一由 `infer_public.py` 完成 |
 | `ocr_clean_core.py` | 原Qwen3VL8B目录的本地严格cleaner | 未改变清洗规则 |
 | `infer_public.py` | 原Qwen3VL8B目录 | 未改，SHA256仍为 `25da6947...b8` |
-| `prepare_data.py` | 原Qwen3VL8B目录 | 仅修正过期profile名称，使其与真实840配置一致 |
-| `train_lora.py` | 原Qwen3VL8B目录 | 默认LoRA改为已完成adapter的r32/alpha64 |
 | `experiments/qwen3_ocr_experiment.py` | 原Qwen3VL8B目录 | 改为从项目根目录导入公共模块 |
 
-模型权重、视频和问题CSV仍是外部资源，统一由 `pipeline_env.sh` 配置。这不属于跨目录代码混用。
+模型权重、视频和问题CSV仍是外部资源，统一由 `pipeline_env.sh` 配置。这不属于跨目录代码混用。最终仓库只保留 Base 推理流程，历史训练源码与训练产物不在本仓库中。
