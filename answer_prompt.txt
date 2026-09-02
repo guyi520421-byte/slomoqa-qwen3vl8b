@@ -1,0 +1,11 @@
+Movie title metadata: {movie_title}
+Timestamped ASR/subtitle/strictly-cleaned OCR evidence:
+{text_evidence}
+
+The visuals are question-relevant frames selected from the complete video and shown chronologically. 
+Text evidence may contain recognition errors. 
+Use only mutually supported evidence, answer the exact question, and do not summarize unrelated events or invent missing facts.
+
+Question: {question}
+{answer_instruction}
+Return only the answer with no prefix, reasoning, or explanation.

@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+outputs/*.json
+outputs/*.meta.json
+inputs/*_evidence_raw.jsonl
+inputs/qwen3_ocr/
+outputs/qwen3vl8b_frame_legacy_exact_lora/
