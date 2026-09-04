@@ -5,7 +5,11 @@ source "$ROOT/pipeline_env.sh"
 configure_split
 OUTPUT=${OUTPUT:-$ROOT/outputs/qwen3vl8b_base_${SPLIT}.json}
 CUSTOM=()
-if [[ "$SPLIT" == public ]]; then CUSTOM+=(--allow-custom-public-inputs); fi
+case "${ALLOW_CUSTOM_PUBLIC_INPUTS:-0}" in
+  1|true|TRUE|yes|YES) CUSTOM+=(--allow-custom-public-inputs) ;;
+  0|false|FALSE|no|NO) ;;
+  *) echo "ALLOW_CUSTOM_PUBLIC_INPUTS must be 0 or 1" >&2; exit 2 ;;
+esac
 cd "$ROOT"
 exec "$QWEN_PYTHON" "$ROOT/infer_public.py" \
   --split "$SPLIT" --gpu-ids "$GPU_ID" --qwen-path "$QWEN3_MODEL" \

@@ -13,4 +13,6 @@
 | `infer_public.py` | 原Qwen3VL8B目录 | 未改，SHA256仍为 `25da6947...b8` |
 | `experiments/qwen3_ocr_experiment.py` | 原Qwen3VL8B目录 | 改为从项目根目录导入公共模块 |
 
+`preflight.sh`、`run_best_cached.sh`、`run_all.sh`、`validate_artifacts.py` 和 `RERUN_GUIDE.md` 是本整理目录新增的运行与完整性检查文件，不依赖旧工程源码。
+
 模型权重、视频和问题CSV仍是外部资源，统一由 `pipeline_env.sh` 配置。这不属于跨目录代码混用。最终仓库只保留 Base 推理流程，历史训练源码与训练产物不在本仓库中。

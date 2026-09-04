@@ -14,7 +14,18 @@ REQUIRED = (
     "inputs/public_evidence_ocr_clean.jsonl",
     "inputs/private_evidence_ocr_clean.jsonl",
     "inputs/private_evidence_ocr_clean_fullregen_gpu1.jsonl",
+    "preflight.sh",
+    "run_all.sh",
+    "run_best_cached.sh",
+    "validate_artifacts.py",
 )
+EXPECTED_SHA256 = {
+    "inputs/public_selections.jsonl": "8bf79b8f11287c14f6fd93bf259ee29637a98eb22a0b680219249e5daf35d5e5",
+    "inputs/private_selections.jsonl": "e9691bcb50b664534041eb0d44c48e670afddb4903b78e752d1e762cb1a62085",
+    "inputs/public_evidence_ocr_clean.jsonl": "20a20f417927402a108638605914a8e5b6731bfad4773d70e1d0e5a2a8fc7798",
+    "inputs/private_evidence_ocr_clean.jsonl": "b41b8cbb26e4745c0815fa3d130247f6397f1cb6f11ad86ba0396ee8d61a5dcf",
+    "inputs/private_evidence_ocr_clean_fullregen_gpu1.jsonl": "1a9900a4147d146b82d7c066e155864bba6cb507b80d61f18e7abdf05d84bf0e",
+}
 FORBIDDEN_CODE_ROOTS = (
     "/data/wen1/slomoQa/ideoITG_dinov2MMR_OCR",
     "/data/wen1/slomoQa/ideoITG_dinov2MMR_OCRClean",
@@ -58,10 +69,16 @@ def main() -> None:
         actual = jsonl_count(ROOT / name)
         if actual != expected:
             raise RuntimeError(f"{name}: expected {expected}, got {actual}")
+        actual_sha256 = sha256(ROOT / name)
+        if actual_sha256 != EXPECTED_SHA256[name]:
+            raise RuntimeError(
+                f"{name}: golden cache SHA256 mismatch; "
+                f"expected {EXPECTED_SHA256[name]}, got {actual_sha256}"
+            )
     print("Package integrity: PASS")
     print("Local Python code has no imports from prior project directories.")
     for name in expected_counts:
-        print(f"{name}: {expected_counts[name]} records, sha256={sha256(ROOT / name)}")
+        print(f"{name}: {expected_counts[name]} records, sha256={EXPECTED_SHA256[name]}")
 
 if __name__ == "__main__":
     main()

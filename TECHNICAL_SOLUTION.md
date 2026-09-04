@@ -37,7 +37,7 @@ relevance = 0.85 × normalized_VideoITG_score + 0.15 × rank_prior
 - Subtitle：读取视频内嵌字幕或可选 sidecar 字幕。
 - OCR：Qwen2.5-VL-7B，对各视频跨问题合并后的 MMR 帧按相关分数取最多 96 帧；batch=3，`max_new_tokens=512`。
 
-整理版默认 OCR 输入为最长边 1024、每图 256–512 visual tokens。图片参数位于 `run_03_evidence_qwen25vl.sh`，不会回头改变 VideoITG/DINOv2 已生成的 selections。
+当前最佳 Public 结果复用的 golden OCR cache 来自最长边 740、每图 128–256 visual tokens；这也是 `run_03_evidence_qwen25vl.sh` 的主线默认值。后来 Private full-regeneration 对比使用最长边 1024、每图 256–512 visual tokens，可通过 `OCR_DECODE_MAX_SIDE`、`OCR_MIN_VISUAL_TOKENS` 和 `OCR_MAX_VISUAL_TOKENS` 覆盖。OCR 图片参数不会回头改变 VideoITG/DINOv2 已生成的 selections。
 
 ## 4. OCR 清洗
 

@@ -1,5 +1,6 @@
 __pycache__/
 *.pyc
 outputs/
+runs/
 inputs/*_evidence_raw.jsonl
 inputs/qwen3_ocr/

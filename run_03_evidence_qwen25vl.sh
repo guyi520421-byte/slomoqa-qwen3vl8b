@@ -3,9 +3,12 @@ set -euo pipefail
 ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 source "$ROOT/pipeline_env.sh"
 configure_split
-OCR_DECODE_MAX_SIDE=${OCR_DECODE_MAX_SIDE:-1024}
-OCR_MIN_VISUAL_TOKENS=${OCR_MIN_VISUAL_TOKENS:-256}
-OCR_MAX_VISUAL_TOKENS=${OCR_MAX_VISUAL_TOKENS:-512}
+# These defaults reproduce the OCR-generation profile behind the packaged
+# cleaned-evidence cache used by qwen3vl8b_base512_public3.json.  They are
+# intentionally separate from the final answer model's 1024/512-512 settings.
+OCR_DECODE_MAX_SIDE=${OCR_DECODE_MAX_SIDE:-740}
+OCR_MIN_VISUAL_TOKENS=${OCR_MIN_VISUAL_TOKENS:-128}
+OCR_MAX_VISUAL_TOKENS=${OCR_MAX_VISUAL_TOKENS:-256}
 cd "$ROOT"
 exec "$QWEN_PYTHON" "$ROOT/feature_pipeline.py" \
   --stage evidence --split "$SPLIT" --gpu-ids "$GPU_ID" \
